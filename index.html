@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título Foda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            max-width: 100%; /* Limita a largura máxima */
+        }
+        .section {
+            width: 45%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: all 0.5s ease; /* Transição suave para a seção */
+        }
+        .section h2 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            margin: 10px 0;
+        }
+        .button {
+            display: block;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .material {
+            margin-top: 20px;
+            display: none;
+        }
+        .image {
+            margin-top: 10px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Título Foda</div>
+    <div class="container" id="container">
+        <div class="section" id="setor-section">
+            <h2>Setor</h2>
+            <ul>
+                <li><a href="#" class="button" onclick="showMachines('BCM')">BCM</a></li>
+                <li><a href="#" class="button" onclick="showMachines('ABS')">ABS</a></li>
+                <li><a href="#" class="button" onclick="showMachines('ADULT')">ADULT</a></li>
+                <li><a href="#" class="button" onclick="showMachines('WET WIPES')">WET WIPES</a></li>
+                <li><a href="#" class="button" onclick="showMachines('COFORM')">COFORM</a></li>
+            </ul>
+        </div>
+        <div class="section" id="maquina-section" style="display: none;">
+            <h2>Máquinas</h2>
+            <ul id="machine-list"></ul>
+        </div>
+    </div>
+
+    <div id="material-info" class="material">
+        <h2 id="material-title"></h2>
+        <div class="image" id="material-image"></div>
+        <div id="material-description"></div>
+    </div>
+
+    <script>
+        const materials = {
+            'BCM': {
+                'FB - 12': {
+                    description: 'Descrição do material 1',
+                    image: '_para_imagem_1.jpg'
+                },
+                'FB - 13': {
+                    description: 'Descrição do material 2',
+                    image: 'Digitalização de Boas-vindas.jpg'
+                }
+            },
+            'ABS': {
+                'FB - 14': {
+                    description: 'Descrição do material 3',
+                    image: 'link_para_imagem_3.jpg'
+                },
+                'FB - 15': {
+                    description: 'Descrição do material 4',
+                    image: 'link_para_imagem_4.jpg'
+                }
+            },
+            'ADULT': {
+                'FB - 16': {
+                    description: 'Descrição do material 5',
+                    image: 'link_para_imagem_5.jpg'
+                },
+                'FB - 17': {
+                    description: 'Descrição do material 6',
+                    image: 'link_para_imagem_6.jpg'
+                }
+            },
+            'WET WIPES': {
+                'FB - 18': {
+                    description: 'Descrição do material 7',
+                    image: 'link_para_imagem_7.jpg'
+                },
+                'FB - 19': {
+                    description: 'Descrição do material 8',
+                    image: 'link_para_imagem_8.jpg'
+                }
+            },
+            'COFORM': {
+                'FB - 20': {
+                    description: 'Descrição do material 9',
+                    image: 'link_para_imagem_9.jpg'
+                },
+                'FB - 21': {
+                    description: 'Descrição do material 10',
+                    image: 'link_para_imagem_10.jpg'
+                }
+            }
+        };
+
+        function showMachines(sector) {
+            // Exibe a seção de máquinas
+            document.getElementById('maquina-section').style.display = 'block';
+            const machineList = document.getElementById('machine-list');
+            machineList.innerHTML = ''; // Limpar lista anterior
+
+            // Adiciona máquinas para o setor selecionado
+            for (const machine in materials[sector]) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#" class="button" onclick="showMaterial('${sector}', '${machine}')">${machine}</a>`;
+                machineList.appendChild(listItem);
+            }
+        }
+
+        function showMaterial(sector, machine) {
+            const material = materials[sector][machine];
+            if (material) {
+                document.getElementById('material-title').innerText = machine;
+                document.getElementById('material-description').innerText = material.description;
+                document.getElementById('material-image').innerHTML = `<img src="${material.image}" alt="${machine}">`;
+                document.getElementById('material-info').style.display = 'block'; // Mostrar informações do material
+            }
+        }
+    </script>
+</body>
+</html>
