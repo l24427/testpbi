@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título Teste</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        .header {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+        .section {
+            width: 45%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.5s ease;
+        }
+        #setor-section {
+            margin: 0;
+            transition: transform 0.5s ease;
+        }
+        #maquina-section {
+            margin-left: 20px;
+            display: none;
+        }
+        .section.hidden {
+            transform: translateX(-20%);
+        }
+        .section.visible {
+            transform: translateX(0);
+        }
+        .section h2 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            margin: 10px 0;
+        }
+        .button {
+            display: block;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .material {
+            margin-top: 20px;
+            display: none;
+        }
+        .image {
+            margin-top: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        .image-container {
+            margin: 10px;
+        }
+        img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .description {
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        #material-title {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header" id="header">Título Teste</div>
+    <div class="container" id="container">
+        <div class="section visible" id="setor-section">
+            <h2>Setor</h2>
+            <ul>
+                <li><a href="#" class="button" onclick="showMachines('BCM')">BCM</a></li>
+                <li><a href="#" class="button" onclick="showMachines('ABS')">ABS</a></li>
+                <li><a href="#" class="button" onclick="showMachines('ADULT')">ADULT</a></li>
+                <li><a href="#" class="button" onclick="showMachines('WET WIPES')">WET WIPES</a></li>
+                <li><a href="#" class="button" onclick="showMachines('COFORM')">COFORM</a></li>
+            </ul>
+        </div>
+        <div class="section hidden" id="maquina-section">
+            <h2>Máquinas</h2>
+            <ul id="machine-list"></ul>
+        </div>
+    </div>
+
+    <div id="material-info" class="material">
+        <h2 id="material-title"></h2>
+        <div class="image" id="material-image"></div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const password = "minecraft";
+
+        document.getElementById('header').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                const userInput = prompt("Digite a senha de autorização:");
+                if (userInput !== password) {
+                    alert("Senha incorreta! O site irá explodir.");
+                    explodeSite(); // Chama a função que simula a explosão
+                } else {
+                    alert("Senha correta! Acesso autorizado.");
+                }
+                clickCount = 0;
+            }
+        });
+
+        function explodeSite() {
+            // Muda o conteúdo do corpo da página
+            document.body.innerHTML = `
+                <div style="text-align: center; margin-top: 50px;">
+                    <h1 style="color: red;">BOOM!</h1>
+                    <p>Corra enquanto há tempo.</p>
+                    <img src="giphy.gif" alt="Explosion" style="max-width: 100%; height: auto;">
+                </div>
+            `;
+            
+            // Opcional: Adiciona um efeito sonoro de explosão
+            // const audio = new Audio('link_para_som_de_explosao.mp3'); // Substitua pelo link de um som de explosão
+            // audio.play();
+        }
+
+        const materials = {
+            'BCM': {
+                'FB - 12': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: '_para_imagem_1.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_2.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                },
+                'FB - 13': {
+                    description: 'Descrição do material 2',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: ' 80046652 - Artigo de Borracha', desc2: 'R$ 420,69' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: '80046652 - Artigo de Urânio', desc2: 'R$ 9.999.999,999' }
+                    ]
+                }
+            },
+            'ABS': {
+                'FB - 14': {
+                    description: 'Descrição do material 3',
+                    images: [
+                        { src: 'link_para_imagem_3.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_4.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                },
+                'FB - 15': {
+                    description: 'Descrição do material 4',
+                    images: [
+                        { src: 'link_para_imagem_5.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_6.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                }
+            },
+            'ADULT': {
+                'FB - 16': {
+                    description: 'Descrição do material 5',
+                    images: [
+                        { src: 'link_para_imagem_7.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_8.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                },
+                'FB - 17': {
+                    description: 'Descrição do material 6',
+                    images: [
+                        { src: 'link_para_imagem_9.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_10.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                }
+            },
+            'WET WIPES': {
+                'FB - 18': {
+                    description: 'Descrição do material 7',
+                    images: [
+                        { src: 'link_para_imagem_11.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_12.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                },
+                'FB - 19': {
+                    description: 'Descrição do material 8',
+                    images: [
+                        { src: 'link_para_imagem_13.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_14.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                }
+            },
+            'COFORM': {
+                'FB - 20': {
+                    description: 'Descrição do material 9',
+                    images: [
+                        { src: 'link_para_imagem_15.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_16.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                },
+                'FB - 21': {
+                    description: 'Descrição do material 10',
+                    images: [
+                        { src: 'link_para_imagem_17.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'link_para_imagem_18.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' }
+                    ]
+                }
+            }
+        };
+
+        function showMachines(sector) {
+            const maquinaSection = document.getElementById('maquina-section');
+            const setorSection = document.getElementById('setor-section');
+
+            setorSection.classList.add('hidden');
+            setorSection.style.transform = 'translateX(-20%)';
+            maquinaSection.style.display = 'block';
+            maquinaSection.classList.remove('hidden');
+
+            const machineList = document.getElementById('machine-list');
+            machineList.innerHTML = '';
+
+            for (const machine in materials[sector]) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#" class="button" onclick="showMaterial('${sector}', '${machine}')">${machine}</a>`;
+                machineList.appendChild(listItem);
+            }
+        }
+
+        function showMaterial(sector, machine) {
+            const material = materials[sector][machine];
+            if (material) {
+                document.getElementById('material-title').innerText = machine;
+
+                const imagesHtml = material.images.map(image => `
+                    <div class="image-container">
+                        <img src="${image.src}" alt="${machine}">
+                        <div class="description">${image.desc1}</div>
+                        <div class="description">${image.desc2}</div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('material-image').innerHTML = imagesHtml;
+                document.getElementById('material-info').style.display = 'block';
+            }
+        }
+
+        window.onload = function() {
+            const setorSection = document.getElementById('setor-section');
+            setorSection.classList.add('visible');
+        };
+    </script>
+</body>
+</html>
