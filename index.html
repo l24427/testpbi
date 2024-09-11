@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título Teste</title>
+    <style>
+        /* Estilo existente */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        .header {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+        .section {
+            width: 35%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.5s ease;
+        }
+        #setor-section {
+            margin: 0;
+            transition: transform 0.5s ease;
+        }
+        #maquina-section {
+            margin-left: 20px;
+            display: none;
+        }
+        .section.hidden {
+            transform: translateX(-20%);
+        }
+        .section.visible {
+            transform: translateX(0);
+        }
+        .section h2 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            margin: 10px 0;
+        }
+        .button {
+            display: block;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .material {
+            margin-top: 20px;
+            display: none;
+        }
+        .image {
+            margin-top: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+        }
+        .image-container {
+            margin: 10px;
+            display: none; /* Inicialmente oculto */
+        }
+        img {
+            max-width: 45%; /* Aumente se necessário */
+            height: auto;
+            border-radius: 5px;
+        }
+        .description {
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        #material-title {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .arrow {
+            cursor: pointer;
+            font-size: 2em;
+            margin: 0 20px;
+            user-select: none; /* Para evitar seleção de texto */
+        }
+        .top-title {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header" id="header">Título Teste</div>
+    <div class="container" id="container">
+        <div class="section visible" id="setor-section">
+            <h2>Wave</h2>
+            <ul>
+                <li><a href="#" class="button" onclick="showMachines('LPLCC')">LPLCC</a></li>
+                <li><a href="#" class="button" onclick="showMachines('CEF')">CEF</a></li>
+            </ul>
+        </div>
+        <div class="section hidden" id="maquina-section">
+            <h2>Tipos</h2>
+            <ul id="machine-list"></ul>
+        </div>
+    </div>
+
+    <div id="material-info" class="material">
+        <h2 id="material-title"></h2>
+        <div class="image" id="material-image"></div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const password = "minecraft";
+
+        document.getElementById('header').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                const userInput = prompt("Digite a senha de autorização:");
+                if (userInput !== password) {
+                    alert("Senha incorreta! O site irá explodir.");
+                    explodeSite(); // Chama a função que simula a explosão
+                } else {
+                    alert("Senha correta! Acesso autorizado.");
+                }
+                clickCount = 0;
+            }
+        });
+
+        function explodeSite() {
+            document.body.innerHTML = `
+                <div style="text-align: center; margin-top: 50px;">
+                    <h1 style="color: red;">BOOM!</h1>
+                    <p>Corra enquanto há tempo.</p>
+                    <img src="giphy.gif" alt="Explosion" style="max-width: 100%; height: auto;">
+                </div>
+            `;
+        }
+
+        const materials = {
+            'LPLCC': {
+                'Open Diaper': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg',  desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                },
+                'Suzano': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg',  desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                },
+                'AC': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg',  desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                },
+                'AFC': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg',  desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                },
+                'BCM': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                }
+                
+            },
+            
+            'CEF': {
+                'Open Diaper': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg',  desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                },
+                'Suzano': {
+                    description: 'Descrição do material 1',
+                    images: [
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 1 - Parte 1', desc2: 'Descrição da Imagem 1 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 2 - Parte 1', desc2: 'Descrição da Imagem 2 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 3 - Parte 1', desc2: 'Descrição da Imagem 3 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 4 - Parte 1', desc2: 'Descrição da Imagem 4 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 5 - Parte 1', desc2: 'Descrição da Imagem 5 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 6 - Parte 1', desc2: 'Descrição da Imagem 6 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 7 - Parte 1', desc2: 'Descrição da Imagem 7 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 8 - Parte 1', desc2: 'Descrição da Imagem 8 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg', desc1: 'Descrição da Imagem 9 - Parte 1', desc2: 'Descrição da Imagem 9 - Parte 2' },
+                        { src: 'Digitalização de Boas-vindas.jpg',  desc1: 'Descrição da Imagem 10 - Parte 1', desc2: 'Descrição da Imagem 10 - Parte 2' }
+                    ]
+                    
+                }
+                
+            },
+        };
+        
+        
+
+        
+            
+            
+            
+            // Adicione os outros setores e máquinas conforme necessário
+
+        let currentImageIndex = 0; // Para controle do índice da imagem
+
+        function showMachines(sector) {
+            const maquinaSection = document.getElementById('maquina-section');
+            const setorSection = document.getElementById('setor-section');
+
+            setorSection.classList.add('hidden');
+            setorSection.style.transform = 'translateX(-20%)';
+            maquinaSection.style.display = 'block';
+            maquinaSection.classList.remove('hidden');
+
+            const machineList = document.getElementById('machine-list');
+            machineList.innerHTML = '';
+
+            for (const machine in materials[sector]) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#" class="button" onclick="showMaterial('${sector}', '${machine}')">${machine}</a>`;
+                machineList.appendChild(listItem);
+            }
+        }
+
+        function showMaterial(sector, machine) {
+            const material = materials[sector][machine];
+            if (material) {
+                document.getElementById('material-title').innerText = machine;
+
+                const imagesHtml = material.images.map((image, index) => `
+                    <div class="image-container" style="display: ${index < 2 ? 'block' : 'none'};"> <!-- Exibe as duas primeiras inicialmente -->
+                        <div class="top-title">TOP ${index + 1}</div>
+                        <img src="${image.src}" alt="${machine}">
+                        <div class="description">${image.desc1}</div>
+                        <div class="description">${image.desc2}</div>
+                    </div>
+                `).join('');
+
+                document.getElementById('material-image').innerHTML = `
+                    <span class="arrow" onclick="changeImage(-1)">&#10094;</span>
+                    <div class="image">${imagesHtml}</div>
+                    <span class="arrow" onclick="changeImage(1)">&#10095;</span>
+                `;
+                document.getElementById('material-info').style.display = 'block';
+                currentImageIndex = 0; // Reinicia o índice atual
+                updateImageVisibility();
+            }
+        }
+
+        function changeImage(direction) {
+            const imageContainers = document.querySelectorAll('.image-container');
+            currentImageIndex += direction * 2; // Muda 2 a cada clique
+
+            if (currentImageIndex < 0) {
+                currentImageIndex = Math.max(imageContainers.length - 2, 0); // Se ultrapassar, fica no último par
+            } else if (currentImageIndex >= imageContainers.length) {
+                currentImageIndex = 0; // Volta para a primeira imagem
+            }
+
+            updateImageVisibility();
+        }
+
+        function updateImageVisibility() {
+            const imageContainers = document.querySelectorAll('.image-container');
+            imageContainers.forEach((container, index) => {
+                container.style.display = (index >= currentImageIndex && index < currentImageIndex + 2) ? 'block' : 'none'; // Exibe 2 imagens
+            });
+        }
+
+        window.onload = function() {
+            const setorSection = document.getElementById('setor-section');
+            setorSection.classList.add('visible');
+        };
+    </script>
+</body>
+</html>
